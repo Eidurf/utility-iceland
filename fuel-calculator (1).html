@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fuel Cost Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url('images/gas-station-iceland-banner.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      margin: 0;
+      padding: 0;
+    }
+
+    .overlay {
+      background: rgba(255, 255, 255, 0.9);
+      max-width: 500px;
+      margin: 5vh auto;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 2rem;
+      color: #222;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      width: 100%;
+      background: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    .result {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fuel Cost Calculator</h1>
+  <div class="overlay">
+    <label for="distance">Distance to drive (km):</label>
+    <input type="number" id="distance" placeholder="e.g. 300" />
+
+    <label for="consumption">Fuel consumption (liters per 100 km):</label>
+    <input type="number" id="consumption" step="0.1" placeholder="e.g. 7.5" />
+
+    <label for="price">Fuel price (ISK per liter):</label>
+    <input type="number" id="price" placeholder="e.g. 320" />
+
+    <button onclick="calculate()">Calculate Cost</button>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculate() {
+      const distance = parseFloat(document.getElementById('distance').value);
+      const consumption = parseFloat(document.getElementById('consumption').value);
+      const price = parseFloat(document.getElementById('price').value);
+
+      if (isNaN(distance) || isNaN(consumption) || isNaN(price)) {
+        document.getElementById('result').textContent = "Please fill in all fields.";
+        return;
+      }
+
+      const litersUsed = (distance / 100) * consumption;
+      const totalCost = litersUsed * price;
+
+      document.getElementById('result').textContent = 
+        "Estimated fuel cost: " + totalCost.toLocaleString() + " ISK";
+    }
+  </script>
+</body>
+</html>
